@@ -192,6 +192,11 @@ def __gather_extensions(vnode, export_settings):
     blender_object = vnode.blender_object
     extensions = {}
 
+    # FIX FROM https://github.com/KhronosGroup/glTF-Blender-IO/commit/6b8f2799dee989db0cf2e0556c8c45fba5019eca
+    blender_lamp = None
+    if vnode.blender_type == VExportNode.COLLECTION:
+        return None
+    
     blender_lamp = None
     if export_settings["gltf_lights"] and vnode.blender_type == VExportNode.INSTANCE and vnode.data is not None:
         if vnode.data.type in LIGHTS:
